@@ -9,94 +9,111 @@ interface LandingPageProps {
 ══════════════════════════════════════════════ */
 function TerrainVisual() {
   return (
-    <div className="relative w-full overflow-hidden" style={{ height: '340px' }}>
+    <div className="relative w-full overflow-hidden" style={{ height: '460px' }}>
       <svg
-        viewBox="0 0 1440 340"
+        viewBox="0 0 1440 460"
         preserveAspectRatio="xMidYMid slice"
         className="absolute inset-0 w-full h-full"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <radialGradient id="tglow" cx="50%" cy="30%" rx="40%" ry="50%">
-            <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.42" />
-            <stop offset="35%" stopColor="#0891b2" stopOpacity="0.18" />
-            <stop offset="70%" stopColor="#0e7490" stopOpacity="0.06" />
-            <stop offset="100%" stopColor="#060d1a" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="tglow2" cx="50%" cy="20%" rx="28%" ry="33%">
-            <stop offset="0%" stopColor="#a3e635" stopOpacity="0.09" />
-            <stop offset="100%" stopColor="#060d1a" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="ridgehl" x1="20%" y1="0%" x2="80%" y2="0%">
-            <stop offset="0%" stopColor="rgba(45,212,191,0)" />
-            <stop offset="50%" stopColor="rgba(45,212,191,0.20)" />
-            <stop offset="100%" stopColor="rgba(45,212,191,0)" />
+          {/* Left hill fill — completely transparent at the peak, solid at the base */}
+          <linearGradient id="hfL" x1="0" y1="95" x2="0" y2="460" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#0b1c30" stopOpacity="0"/>
+            <stop offset="18%"  stopColor="#0c1e34" stopOpacity="0.40"/>
+            <stop offset="55%"  stopColor="#091728" stopOpacity="0.78"/>
+            <stop offset="100%" stopColor="#060d1a" stopOpacity="1"/>
           </linearGradient>
-          <linearGradient id="ridgehl2" x1="25%" y1="0%" x2="75%" y2="0%">
-            <stop offset="0%" stopColor="rgba(163,230,53,0)" />
-            <stop offset="50%" stopColor="rgba(163,230,53,0.07)" />
-            <stop offset="100%" stopColor="rgba(163,230,53,0)" />
+
+          {/* Right hill fill */}
+          <linearGradient id="hfR" x1="0" y1="110" x2="0" y2="460" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#0b1c30" stopOpacity="0"/>
+            <stop offset="20%"  stopColor="#0c1e34" stopOpacity="0.38"/>
+            <stop offset="55%"  stopColor="#091728" stopOpacity="0.74"/>
+            <stop offset="100%" stopColor="#060d1a" stopOpacity="1"/>
           </linearGradient>
+
+          {/* Back hill fill (faintest depth layer) */}
+          <linearGradient id="hfBack" x1="0" y1="150" x2="0" y2="460" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stopColor="#0d2040" stopOpacity="0"/>
+            <stop offset="30%"  stopColor="#0d2040" stopOpacity="0.28"/>
+            <stop offset="100%" stopColor="#060d1a" stopOpacity="1"/>
+          </linearGradient>
+
+          {/* Lime glow radial */}
+          <radialGradient id="limeG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#a3e635" stopOpacity="0.55"/>
+            <stop offset="38%"  stopColor="#84cc16" stopOpacity="0.20"/>
+            <stop offset="72%"  stopColor="#65a30d" stopOpacity="0.05"/>
+            <stop offset="100%" stopColor="#a3e635" stopOpacity="0"/>
+          </radialGradient>
+
+          {/* Teal ambient glow */}
+          <radialGradient id="tealG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#14b8a6" stopOpacity="0.30"/>
+            <stop offset="48%"  stopColor="#0891b2" stopOpacity="0.10"/>
+            <stop offset="100%" stopColor="#14b8a6" stopOpacity="0"/>
+          </radialGradient>
+
+          {/* Heavy blur for ambient glow blobs */}
+          <filter id="gb" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="48"/>
+          </filter>
         </defs>
 
-        {/* Base */}
-        <rect width="1440" height="340" fill="#060d1a" />
+        {/* ── Background ── */}
+        <rect width="1440" height="460" fill="#060d1a"/>
 
-        {/* Center glow */}
-        <ellipse cx="720" cy="95" rx="500" ry="210" fill="url(#tglow)" />
-        <ellipse cx="720" cy="78" rx="290" ry="145" fill="url(#tglow2)" />
+        {/* ── Ambient glow blobs (sit behind the hills; glow shows through transparent hill tops) ── */}
+        <ellipse cx="310" cy="220" rx="370" ry="250" fill="url(#limeG)" filter="url(#gb)"/>
+        <ellipse cx="1020" cy="240" rx="420" ry="270" fill="url(#tealG)" filter="url(#gb)"/>
 
-        {/* Ridge 1 — farthest back */}
+        {/* ── Back depth layer ── */}
         <path
-          d="M0,258 Q80,238 180,250 Q290,265 390,228 Q460,208 530,190 Q608,172 668,160 Q705,153 720,149 Q735,145 772,154 Q832,165 908,186 Q986,208 1068,228 Q1168,252 1290,238 Q1378,227 1440,244 L1440,340 L0,340 Z"
-          fill="#0d1f35"
-        />
+          d="M-120,460 C-60,430 20,370 100,310 C180,250 260,208 350,182
+             C430,160 498,158 568,185 C638,212 690,260 730,340
+             C738,360 740,400 720,460 Z"
+          fill="url(#hfBack)" opacity="0.55"/>
         <path
-          d="M0,258 Q80,238 180,250 Q290,265 390,228 Q460,208 530,190 Q608,172 668,160 Q705,153 720,149 Q735,145 772,154 Q832,165 908,186 Q986,208 1068,228 Q1168,252 1290,238 Q1378,227 1440,244"
-          stroke="rgba(45,212,191,0.14)" strokeWidth="1.5" fill="none"
-        />
+          d="M1560,460 C1500,430 1420,370 1340,310 C1260,250 1180,208 1090,182
+             C1010,160 942,158 872,185 C802,212 750,260 710,340
+             C702,360 700,400 720,460 Z"
+          fill="url(#hfBack)" opacity="0.45"/>
 
-        {/* Ridge 2 */}
+        {/* ── Main left hill ── */}
         <path
-          d="M0,272 Q65,254 165,266 Q275,282 375,250 Q450,228 520,210 Q595,192 652,178 Q692,169 720,164 Q748,159 792,170 Q855,184 935,206 Q1018,230 1108,250 Q1208,274 1328,258 Q1408,246 1440,262 L1440,340 L0,340 Z"
-          fill="#091829"
-        />
+          d="M-100,460 C-100,440 -50,400 20,355 C90,310 155,268 220,228
+             C295,182 362,150 445,130 C515,114 578,118 640,148
+             C695,174 730,218 748,288 C758,330 754,395 720,460 Z"
+          fill="url(#hfL)"/>
+
+        {/* ── Main right hill ── */}
         <path
-          d="M0,272 Q65,254 165,266 Q275,282 375,250 Q450,228 520,210 Q595,192 652,178 Q692,169 720,164 Q748,159 792,170 Q855,184 935,206 Q1018,230 1108,250 Q1208,274 1328,258 Q1408,246 1440,262"
-          stroke="rgba(45,212,191,0.08)" strokeWidth="1" fill="none"
-        />
+          d="M1540,460 C1540,440 1490,400 1420,355 C1350,310 1285,268 1220,228
+             C1145,182 1078,150 995,130 C925,114 862,118 800,148
+             C745,174 710,218 692,288 C682,330 686,395 720,460 Z"
+          fill="url(#hfR)"/>
 
-        {/* Ridge 3 */}
+        {/* ── Subtle crest highlights (just barely visible, never a hard line) ── */}
         <path
-          d="M0,285 Q52,270 148,280 Q248,295 344,268 Q425,246 498,228 Q570,212 632,200 Q682,190 720,185 Q758,180 806,193 Q868,208 950,228 Q1048,252 1148,272 Q1260,294 1378,274 L1440,268 L1440,340 L0,340 Z"
-          fill="#071422"
-        />
-
-        {/* Ridge 4 */}
+          d="M20,355 C90,310 155,268 220,228 C295,182 362,150 445,130
+             C515,114 578,118 635,146 C688,172 720,212 738,270"
+          stroke="rgba(163,230,53,0.20)" strokeWidth="1.5"
+          fill="none" strokeLinecap="round"/>
         <path
-          d="M0,298 Q42,286 132,294 Q225,306 320,282 Q402,260 476,244 Q548,229 612,217 Q670,207 720,202 Q770,197 825,210 Q892,226 978,246 Q1082,270 1196,288 Q1318,308 1424,288 L1440,286 L1440,340 L0,340 Z"
-          fill="#060f1d"
-        />
+          d="M1420,355 C1350,310 1285,268 1220,228 C1145,182 1078,150 995,130
+             C925,114 862,118 805,146 C752,172 720,212 702,270"
+          stroke="rgba(45,212,191,0.11)" strokeWidth="1"
+          fill="none" strokeLinecap="round"/>
 
-        {/* Ridge 5 — foreground */}
-        <path
-          d="M0,314 Q32,304 118,310 Q202,320 298,298 Q380,278 452,262 Q524,248 588,236 Q652,224 720,220 Q788,216 854,230 Q928,246 1020,266 Q1128,290 1256,308 Q1372,324 1440,308 L1440,340 L0,340 Z"
-          fill="#060d1a"
-        />
-
-        {/* Crest highlight overlays */}
-        <rect x="0" y="0" width="1440" height="340" fill="url(#ridgehl)" opacity="0.65" />
-        <rect x="0" y="0" width="1440" height="340" fill="url(#ridgehl2)" opacity="0.55" />
-
-        {/* Topographic scan lines */}
-        {[158, 172, 186, 200, 214, 228].map((y) => (
-          <line
-            key={y}
-            x1="280" y1={y} x2="1160" y2={y}
-            stroke="rgba(45,212,191,0.04)" strokeWidth="0.8"
-          />
-        ))}
+        {/* ── Bottom fade — wave dissolves seamlessly into page background ── */}
+        <defs>
+          <linearGradient id="btmFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="#060d1a" stopOpacity="0"/>
+            <stop offset="100%" stopColor="#060d1a" stopOpacity="1"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="260" width="1440" height="200" fill="url(#btmFade)"/>
       </svg>
     </div>
   );
@@ -491,7 +508,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
           </p>
 
           {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-20">
+          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-16">
             <button
               onClick={onStart}
               className="flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-95"
@@ -512,30 +529,32 @@ export function LandingPage({ onStart }: LandingPageProps) {
           </div>
         </div>
 
-        {/* Terrain wave */}
-        <div className="w-full">
+        {/* Terrain wave — trust strip floats up into the wave bottom */}
+        <div className="w-full relative">
           <TerrainVisual />
-        </div>
-      </section>
-
-      {/* ── Trust strip ── */}
-      <div className="border-t border-b py-8" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <p
-            className="text-[11px] text-center uppercase tracking-widest mb-6 font-semibold"
-            style={{ color: 'rgba(255,255,255,0.22)' }}
+          {/* Negative margin pulls trust strip up into the faded wave bottom */}
+          <div
+            className="relative z-10 pb-10"
+            style={{ marginTop: '-160px', background: 'transparent' }}
           >
-            Trusted by innovation leaders at
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {customers.map((name) => (
-              <span key={name} className="text-sm font-semibold tracking-wide" style={{ color: 'rgba(255,255,255,0.20)' }}>
-                {name}
-              </span>
-            ))}
+            <div className="max-w-5xl mx-auto px-6">
+              <p
+                className="text-[11px] text-center uppercase tracking-widest mb-6 font-semibold"
+                style={{ color: 'rgba(255,255,255,0.22)' }}
+              >
+                Trusted by innovation leaders at
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+                {customers.map((name) => (
+                  <span key={name} className="text-sm font-semibold tracking-wide" style={{ color: 'rgba(255,255,255,0.20)' }}>
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ── Stats ── */}
       <section className="py-20">
