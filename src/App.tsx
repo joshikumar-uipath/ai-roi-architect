@@ -9,6 +9,7 @@ import { Step4 } from './components/steps/Step4';
 import { Step5 } from './components/steps/Step5';
 import { Step6 } from './components/steps/Step6';
 import { Step7 } from './components/steps/Step7';
+import { PrintReport } from './components/PrintReport';
 
 const STEP_LABELS = [
   'Company Profile',
@@ -29,7 +30,14 @@ function App() {
 
   // Landing page — no chrome
   if (currentStep === 0) {
-    return <LandingPage onStart={nextStep} />;
+    return (
+      <>
+        <div className="screen-content">
+          <LandingPage onStart={nextStep} />
+        </div>
+        <PrintReport />
+      </>
+    );
   }
 
   const renderStep = () => {
@@ -46,7 +54,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+    <PrintReport />
+    <div className="screen-content min-h-screen bg-gray-50">
       {/* Navbar */}
       <header className="bg-white border-b border-gray-200 no-print">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
@@ -108,6 +118,7 @@ function App() {
         </footer>
       </main>
     </div>
+    </>
   );
 }
 

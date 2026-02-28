@@ -17,7 +17,7 @@ interface CalculatorState {
   expectedCustomersPerMonth: number;
 
   // Step 2
-  primaryChallenge: string;
+  primaryChallenges: string[];
   selectedGoals: string[];
   selectedSolutionTypes: string[];
 
@@ -56,7 +56,8 @@ interface CalculatorState {
   results: CalculationResults | null;
 
   // Actions
-  setField: <K extends keyof Omit<CalculatorState, 'setField' | 'toggleGoal' | 'toggleSolutionType' | 'calculateResults' | 'reset' | 'nextStep' | 'prevStep' | 'results' | 'setScenario'>>(
+  toggleChallenge: (id: string) => void;
+  setField: <K extends keyof Omit<CalculatorState, 'setField' | 'toggleGoal' | 'toggleSolutionType' | 'toggleChallenge' | 'calculateResults' | 'reset' | 'nextStep' | 'prevStep' | 'results' | 'setScenario' | 'goToLanding'>>(
     key: K,
     value: CalculatorState[K]
   ) => void;
@@ -81,7 +82,7 @@ const defaultState = {
   annualSalary: 75000,
   numRepetitiveProcesses: 50,
   expectedCustomersPerMonth: 100,
-  primaryChallenge: '',
+  primaryChallenges: [] as string[],
   selectedGoals: [] as string[],
   selectedSolutionTypes: [] as string[],
   hoursWastedPerWeek: 10,
@@ -139,6 +140,12 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => ({
     selectedGoals: state.selectedGoals.includes(goal)
       ? state.selectedGoals.filter((g) => g !== goal)
       : [...state.selectedGoals, goal],
+  })),
+
+  toggleChallenge: (id) => set((state) => ({
+    primaryChallenges: state.primaryChallenges.includes(id)
+      ? state.primaryChallenges.filter((c) => c !== id)
+      : [...state.primaryChallenges, id],
   })),
 
   toggleSolutionType: (type) => set((state) => ({

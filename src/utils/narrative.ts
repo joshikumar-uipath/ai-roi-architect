@@ -8,7 +8,7 @@ export interface NarrativeContext {
   numRepetitiveProcesses: number;
   numEmployees: number;
   aiMaturity: string;
-  primaryChallenge: string;
+  primaryChallenges: string[];
 }
 
 const challengeFraming: Record<string, string> = {
@@ -37,8 +37,11 @@ export function generateNarrative(
       ? 'with long-term compounding value'
       : `with the full investment recovered in just ${formatMonths(results.paybackPeriodMonths)}`;
 
-  const focusStr = ctx.primaryChallenge
-    ? ` — focused on ${challengeFraming[ctx.primaryChallenge] ?? 'business transformation'}`
+  const selectedFramings = ctx.primaryChallenges
+    .map((id) => challengeFraming[id])
+    .filter(Boolean);
+  const focusStr = selectedFramings.length > 0
+    ? ` — focused on ${selectedFramings.slice(0, -1).join(', ')}${selectedFramings.length > 1 ? ' and ' : ''}${selectedFramings[selectedFramings.length - 1]}`
     : '';
 
   const headline =

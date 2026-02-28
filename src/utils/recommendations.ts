@@ -50,7 +50,7 @@ export function getRecommendations(
     });
   }
 
-  if (hasGoal('errors') || complianceBurden === 'High') {
+  if (hasGoal('errors') || complianceBurden === 'High' || hasSolution('document-understanding')) {
     add({
       id: 'doc-understanding',
       name: 'UiPath Document Understanding',
@@ -80,6 +80,39 @@ export function getRecommendations(
       benefit: `Drives revenue growth by optimizing customer communications — projected $${Math.round(annualRevenueGain).toLocaleString()}/year gain.`,
       color: 'emerald',
       icon: '💬',
+    });
+  }
+
+  if (hasSolution('process-mining') || hasGoal('automate') || hasGoal('workload')) {
+    add({
+      id: 'process-mining',
+      name: 'UiPath Process Mining',
+      description: 'Analyze system event logs to discover, visualize, and prioritize the highest-impact automation opportunities.',
+      benefit: 'Eliminates guesswork — surfaces the processes where automation delivers the greatest ROI.',
+      color: 'sky',
+      icon: '🔍',
+    });
+  }
+
+  if (hasSolution('integration-service') || hasGoal('automate') || hasGoal('decision')) {
+    add({
+      id: 'integration-service',
+      name: 'UiPath Integration Service',
+      description: 'Pre-built, governed API connectors for 300+ enterprise applications — SAP, Salesforce, ServiceNow and more.',
+      benefit: 'Accelerates automation deployment by eliminating custom integration work across your tech stack.',
+      color: 'teal',
+      icon: '🔗',
+    });
+  }
+
+  if (hasSolution('test-automation')) {
+    add({
+      id: 'test-automation',
+      name: 'UiPath Test Automation',
+      description: 'End-to-end automated software testing integrated with your CI/CD pipeline for faster, safer releases.',
+      benefit: 'Reduces regression testing effort and deployment risk, freeing QA teams for higher-value work.',
+      color: 'rose',
+      icon: '🧪',
     });
   }
 

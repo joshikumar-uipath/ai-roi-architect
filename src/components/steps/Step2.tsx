@@ -11,25 +11,25 @@ const primaryChallenges = [
     id: 'efficiency',
     label: 'Operational Efficiency',
     desc: 'Cut costs, reduce manual work, eliminate waste',
-    preselects: { goals: ['workload', 'automate'], solutions: ['ai-automation', 'workflow'] },
+    preselects: { goals: ['workload', 'automate'], solutions: ['ai-automation', 'workflow', 'process-mining'] },
   },
   {
     id: 'experience',
     label: 'Customer Experience',
     desc: 'Improve satisfaction, response times, and loyalty',
-    preselects: { goals: ['cx', 'revenue'], solutions: ['chatbots', 'data'] },
+    preselects: { goals: ['cx', 'revenue'], solutions: ['chatbots', 'data', 'integration-service'] },
   },
   {
     id: 'risk',
     label: 'Risk & Compliance',
     desc: 'Reduce errors, meet regulatory demands, improve accuracy',
-    preselects: { goals: ['errors', 'decision'], solutions: ['ai-automation', 'data'] },
+    preselects: { goals: ['errors', 'decision'], solutions: ['ai-automation', 'document-understanding', 'data'] },
   },
   {
     id: 'growth',
     label: 'Revenue Growth',
     desc: 'Accelerate sales, expand capacity, unlock new markets',
-    preselects: { goals: ['revenue', 'cx', 'decision'], solutions: ['chatbots', 'data'] },
+    preselects: { goals: ['revenue', 'cx', 'decision'], solutions: ['chatbots', 'data', 'integration-service'] },
   },
 ];
 
@@ -43,10 +43,14 @@ const goals = [
 ];
 
 const solutions = [
-  { id: 'ai-automation', label: 'AI Automation', description: 'Intelligent, end-to-end process automation' },
+  { id: 'ai-automation', label: 'AI Automation', description: 'Intelligent, AI-powered end-to-end process automation' },
   { id: 'chatbots', label: 'AI Agents', description: 'Conversational AI for customers & employees' },
-  { id: 'workflow', label: 'Workflow Orchestration', description: 'Cross-system process management' },
-  { id: 'data', label: 'Data & Analytics', description: 'AI-driven insights and reporting' },
+  { id: 'workflow', label: 'Workflow Orchestration', description: 'Cross-system process management & human-in-the-loop' },
+  { id: 'data', label: 'Data & Analytics', description: 'AI-driven insights, dashboards and reporting' },
+  { id: 'process-mining', label: 'Process Mining', description: 'Discover & prioritize automation opportunities from system data' },
+  { id: 'document-understanding', label: 'Document Understanding', description: 'Intelligent extraction from documents, forms & contracts' },
+  { id: 'integration-service', label: 'Integration Service', description: 'Pre-built API connectors for 300+ enterprise systems' },
+  { id: 'test-automation', label: 'Test Automation', description: 'Automated software testing for faster, safer releases' },
 ];
 
 const pillarColors = {
@@ -73,12 +77,16 @@ export function Step2({ onNext, onBack }: Step2Props) {
     return Object.keys(errs).length === 0;
   };
 
-  const handleChallengeSelect = (challengeId: string) => {
+  const handleChallengeToggle = (challengeId: string) => {
     const challenge = primaryChallenges.find((c) => c.id === challengeId);
     if (!challenge) return;
-    store.setField('primaryChallenge', challengeId);
-    challenge.preselects.goals.forEach((g) => { if (!store.selectedGoals.includes(g)) store.toggleGoal(g); });
-    challenge.preselects.solutions.forEach((s) => { if (!store.selectedSolutionTypes.includes(s)) store.toggleSolutionType(s); });
+    const isCurrentlySelected = store.primaryChallenges.includes(challengeId);
+    store.toggleChallenge(challengeId);
+    if (!isCurrentlySelected) {
+      // Adding: merge pre-selected goals/solutions into current selections
+      challenge.preselects.goals.forEach((g) => { if (!store.selectedGoals.includes(g)) store.toggleGoal(g); });
+      challenge.preselects.solutions.forEach((s) => { if (!store.selectedSolutionTypes.includes(s)) store.toggleSolutionType(s); });
+    }
   };
 
   const timeGoals = goals.filter((g) => g.pillar === 'time').map((g) => g.id);
@@ -101,33 +109,37 @@ export function Step2({ onNext, onBack }: Step2Props) {
 
       {/* Primary Challenge */}
       <div>
-        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">Primary Business Challenge</h3>
+        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">Primary Business Challenges</h3>
         <p className="text-xs text-gray-400 mb-4">
-          Pick your top priority — this pre-selects the most relevant goals below.
+          Select all that apply — each pre-selects the most relevant goals below.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {primaryChallenges.map((challenge) => {
-            const isSelected = store.primaryChallenge === challenge.id;
+            const isSelected = store.primaryChallenges.includes(challenge.id);
             return (
               <button
                 key={challenge.id}
                 type="button"
-                onClick={() => handleChallengeSelect(challenge.id)}
+                onClick={() => handleChallengeToggle(challenge.id)}
                 className={`flex flex-col items-start text-left p-4 rounded-xl border-2 transition-all duration-150 ${
                   isSelected
                     ? 'border-slate-900 bg-slate-900'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                <span className={`text-sm font-semibold mb-1 ${isSelected ? 'text-white' : 'text-gray-800'}`}>
-                  {challenge.label}
-                </span>
+                <div className="flex items-start justify-between w-full mb-1">
+                  <span className={`text-sm font-semibold leading-tight ${isSelected ? 'text-white' : 'text-gray-800'}`}>
+                    {challenge.label}
+                  </span>
+                  {isSelected && (
+                    <span className="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 ml-1">
+                      <CheckIcon />
+                    </span>
+                  )}
+                </div>
                 <span className={`text-xs leading-snug ${isSelected ? 'text-slate-400' : 'text-gray-500'}`}>
                   {challenge.desc}
                 </span>
-                {isSelected && (
-                  <span className="mt-2.5 text-xs font-medium text-indigo-300">Goals auto-selected</span>
-                )}
               </button>
             );
           })}

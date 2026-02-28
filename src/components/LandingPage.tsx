@@ -414,14 +414,19 @@ export function LandingPage({ onStart }: LandingPageProps) {
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
-            {['How It Works', 'What You Get', 'Customers', 'FAQ'].map((item) => (
+            {[
+              { label: 'How It Works', id: 'how-it-works' },
+              { label: 'What You Get', id: 'what-you-get' },
+              { label: 'Customers', id: 'customers' },
+              { label: 'FAQ', id: 'faq' },
+            ].map((item) => (
               <button
-                key={item}
-                onClick={onStart}
+                key={item.label}
+                onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
                 className="text-sm transition-colors hover:text-white"
                 style={{ color: 'rgba(255,255,255,0.44)' }}
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </nav>
@@ -623,7 +628,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
       </section>
 
       {/* ── How It Works ── */}
-      <section className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <section id="how-it-works" className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="mb-14 text-center">
             <p
@@ -673,7 +678,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
       </section>
 
       {/* ── Outcomes / Pick Your Output ── */}
-      <section className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <section id="what-you-get" className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="mb-14 text-center">
             <p
@@ -771,7 +776,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
       </section>
 
       {/* ── Testimonial ── */}
-      <section className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <section id="customers" className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="mb-12 text-center">
             <p
@@ -840,7 +845,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+      <section id="faq" className="py-20 border-t" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-12 text-center">
             <p
