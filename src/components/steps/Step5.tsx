@@ -59,16 +59,16 @@ export function Step5({ onNext, onBack }: Step5Props) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
         {/* Inputs */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 lg:space-y-8">
           {/* Monthly customer volume synced from Step 1 */}
-          <div className="bg-indigo-50 rounded-xl border border-indigo-100 p-4 flex items-center justify-between">
+          <div className="rounded-xl border p-4 flex items-center justify-between" style={{ background: 'rgba(250,70,22,0.04)', borderColor: 'rgba(250,70,22,0.18)' }}>
             <div>
-              <div className="text-sm font-medium text-indigo-800">Monthly Customer / Prospect Volume</div>
-              <p className="text-xs text-indigo-600 mt-0.5">Synced from Company Profile — update there if needed.</p>
+              <div className="text-sm font-medium" style={{ color: '#9a2d0a' }}>Monthly Customer / Prospect Volume</div>
+              <p className="text-xs mt-0.5" style={{ color: '#FA4616' }}>Synced from Company Profile — update there if needed.</p>
             </div>
-            <div className="text-2xl font-bold text-indigo-700">
+            <div className="text-2xl font-bold" style={{ color: '#FA4616' }}>
               {store.expectedCustomersPerMonth.toLocaleString()}
             </div>
           </div>
@@ -76,7 +76,7 @@ export function Step5({ onNext, onBack }: Step5Props) {
           {/* Conversion section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700">1</span>
+              <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: '#FA4616' }}>1</span>
               <span className="text-sm font-semibold text-gray-700">Conversion Rate Improvement</span>
             </div>
             <Slider
@@ -144,7 +144,7 @@ export function Step5({ onNext, onBack }: Step5Props) {
 
         {/* Live Preview */}
         <div className="lg:col-span-1">
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-4 space-y-4">
+          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-0 sm:top-4 space-y-4">
             <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
 
@@ -167,7 +167,7 @@ export function Step5({ onNext, onBack }: Step5Props) {
               <div className="text-xs text-gray-500 mb-1">Revenue Source Breakdown</div>
 
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-indigo-500 flex-shrink-0" />
+                <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#FA4616' }} />
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-center">
                     <span className="text-xs text-gray-600 truncate">Conversion Uplift</span>
@@ -176,7 +176,7 @@ export function Step5({ onNext, onBack }: Step5Props) {
                     </span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1">
-                    <div className="bg-indigo-500 h-1.5 rounded-full" style={{ width: `${conversionPct}%` }} />
+                    <div className="h-1.5 rounded-full" style={{ width: `${conversionPct}%`, background: '#FA4616' }} />
                   </div>
                 </div>
               </div>
@@ -243,7 +243,8 @@ export function Step5({ onNext, onBack }: Step5Props) {
         </button>
         <button
           onClick={onNext}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           Next: Investment →
         </button>

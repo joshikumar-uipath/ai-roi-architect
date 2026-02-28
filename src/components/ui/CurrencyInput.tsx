@@ -53,7 +53,7 @@ export function CurrencyInput({ label, value, onChange, hint, error }: CurrencyI
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={`block w-full rounded-md border pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+          className={`block w-full rounded-md border pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FA4616] ${
             error ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
           }`}
           placeholder="0"

@@ -75,9 +75,9 @@ export function Step4({ onNext, onBack }: Step4Props) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
         {/* Inputs */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 lg:space-y-8">
           <Slider
             label="Current Human Error Rate"
             min={1}
@@ -111,7 +111,7 @@ export function Step4({ onNext, onBack }: Step4Props) {
                 Higher compliance amplifies the cost of each error through regulatory fines, audit costs, and remediation requirements.
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {complianceLevels.map((level) => {
                 const isSelected = store.complianceBurden === level.id;
                 return (
@@ -152,7 +152,7 @@ export function Step4({ onNext, onBack }: Step4Props) {
 
         {/* Live Preview */}
         <div className="lg:col-span-1">
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-4 space-y-4">
+          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-0 sm:top-4 space-y-4">
             <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
               Live Risk Preview
@@ -231,7 +231,8 @@ export function Step4({ onNext, onBack }: Step4Props) {
         </button>
         <button
           onClick={onNext}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           Next: Revenue →
         </button>

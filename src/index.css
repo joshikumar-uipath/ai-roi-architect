@@ -18,6 +18,12 @@
     margin: 0 !important;
     padding: 0 !important;
   }
+  /* Preserve background colours & images in print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
   /* Hide the main app shell, show only the print report */
   .screen-content {
     display: none !important;
@@ -25,10 +31,63 @@
   .print-only {
     display: block !important;
   }
+  /* Ensure each report page starts on a new sheet */
+  .pdf-page {
+    page-break-after: always;
+    break-after: page;
+  }
+  .pdf-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* ── Sample Report Modal print overrides ── */
+  /* Modal is portalled to document.body, so it is never inside .screen-content.
+     We still hide the main app content, then make the overlay paint as a normal block. */
+  body.sample-modal-open .screen-content {
+    display: none !important;
+  }
+  body.sample-modal-open .print-only {
+    display: none !important;
+  }
+  body.sample-modal-open .sample-modal-overlay {
+    position: static !important;
+    height: auto !important;
+    background: none !important;
+    backdrop-filter: none !important;
+    overflow: visible !important;
+    display: block !important;
+    inset: auto !important;
+    z-index: auto !important;
+  }
+  body.sample-modal-open .sample-modal-header {
+    display: none !important;
+  }
+  body.sample-modal-open .sample-modal-body {
+    display: block !important;
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    flex: none !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+  body.sample-modal-open .sample-report-page {
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  body.sample-modal-open .sample-report-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
 }
 
 @page {
-  size: A4;
+  size: A4 portrait;
   margin: 0;
 }
 

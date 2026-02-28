@@ -8,8 +8,8 @@ interface ProgressBarProps {
 
 export function ProgressBar({ currentStep, totalSteps, stepLabels }: ProgressBarProps) {
   return (
-    <div className="w-full">
-      <div className="flex items-center">
+    <div className="w-full overflow-x-auto pb-1 -mb-1">
+      <div className="flex items-center min-w-max sm:min-w-0">
         {Array.from({ length: totalSteps }, (_, i) => {
           const step = i + 1;
           const isCompleted = step < currentStep;
@@ -19,7 +19,7 @@ export function ProgressBar({ currentStep, totalSteps, stepLabels }: ProgressBar
             <Fragment key={step}>
               <div className="flex flex-col items-center flex-shrink-0">
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all duration-200 ${
+                  className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all duration-200 ${
                     isCompleted
                       ? 'bg-slate-800 border-slate-800 text-white'
                       : isActive
@@ -40,7 +40,7 @@ export function ProgressBar({ currentStep, totalSteps, stepLabels }: ProgressBar
                   )}
                 </div>
                 <span
-                  className={`text-xs mt-1.5 hidden sm:block whitespace-nowrap transition-all ${
+                  className={`text-[10px] sm:text-xs mt-1 sm:mt-1.5 hidden sm:block whitespace-nowrap transition-all ${
                     isActive
                       ? 'text-slate-800 font-semibold'
                       : isCompleted
@@ -54,7 +54,7 @@ export function ProgressBar({ currentStep, totalSteps, stepLabels }: ProgressBar
 
               {i < totalSteps - 1 && (
                 <div
-                  className={`flex-1 h-px mx-1 mb-5 transition-all duration-300 ${
+                  className={`w-6 sm:flex-1 sm:min-w-0 h-px mx-0.5 sm:mx-1 mb-0 sm:mb-5 transition-all duration-300 flex-shrink-0 sm:flex-shrink ${
                     isCompleted ? 'bg-slate-800' : 'bg-gray-200'
                   }`}
                 />

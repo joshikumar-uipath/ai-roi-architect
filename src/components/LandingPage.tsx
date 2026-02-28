@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SampleReportModal } from './SampleReportModal';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -222,8 +223,8 @@ function FaqItem({
         <span
           className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold transition-all"
           style={{
-            background: open ? '#a3e635' : 'rgba(255,255,255,0.06)',
-            color: open ? '#060d1a' : 'rgba(255,255,255,0.5)',
+            background: open ? '#FA4616' : 'rgba(255,255,255,0.06)',
+            color: open ? 'white' : 'rgba(255,255,255,0.5)',
           }}
         >
           {open ? '−' : '+'}
@@ -385,6 +386,8 @@ const faqs = [
    MAIN COMPONENT
 ══════════════════════════════════════════════ */
 export function LandingPage({ onStart }: LandingPageProps) {
+  const [showSample, setShowSample] = useState(false);
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -401,16 +404,19 @@ export function LandingPage({ onStart }: LandingPageProps) {
         }}
       >
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <div
               className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
-              style={{ background: '#a3e635' }}
+              style={{ background: '#FA4616' }}
             >
-              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" style={{ color: '#060d1a' }}>
+              <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" style={{ color: 'white' }}>
                 <path d="M2 11.5L6 7.5L9.5 11L14 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <span className="text-sm font-bold text-white tracking-tight">AI ROI Architect</span>
+            <div className="flex flex-col leading-tight">
+              <span className="text-sm font-bold text-white tracking-tight">AI ROI Architect</span>
+              <span className="text-[10px] font-semibold tracking-wide" style={{ color: '#FA4616' }}>Powered by UiPath</span>
+            </div>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -433,12 +439,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
           <button
             onClick={onStart}
-            className="px-4 py-2 text-sm font-medium rounded-lg border transition-all hover:bg-white/10"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              borderColor: 'rgba(255,255,255,0.11)',
-              color: 'rgba(255,255,255,0.78)',
-            }}
+            className="px-4 py-2 text-sm font-bold rounded-lg transition-all hover:opacity-90"
+            style={{ background: '#FA4616', color: 'white' }}
           >
             Get Started
           </button>
@@ -467,18 +469,18 @@ export function LandingPage({ onStart }: LandingPageProps) {
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-10"
             style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.10)',
+              background: 'rgba(250,70,22,0.10)',
+              border: '1px solid rgba(250,70,22,0.28)',
             }}
           >
             <span
-              className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-              style={{ background: '#a3e635', color: '#060d1a' }}
+              className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide"
+              style={{ background: '#FA4616', color: 'white' }}
             >
-              New
+              UiPath
             </span>
-            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.52)' }}>
-              2026 AI Business Case Model — Updated Benchmarks
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.60)' }}>
+              AI ROI Architect · 2026 Benchmarks Updated
             </span>
             <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'rgba(255,255,255,0.32)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" stroke="currentColor" />
@@ -516,8 +518,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-16">
             <button
               onClick={onStart}
-              className="flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-95"
-              style={{ background: '#a3e635', color: '#060d1a' }}
+              className="flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-95 shadow-lg"
+              style={{ background: '#FA4616', color: 'white', boxShadow: '0 8px 32px rgba(250,70,22,0.35)' }}
             >
               Build Your Business Case
               <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor">
@@ -525,13 +527,36 @@ export function LandingPage({ onStart }: LandingPageProps) {
               </svg>
             </button>
             <button
-              onClick={onStart}
+              onClick={() => setShowSample(true)}
               className="flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-medium transition-all hover:bg-white/8"
               style={{ border: '1px solid rgba(255,255,255,0.16)', color: 'rgba(255,255,255,0.76)' }}
             >
               See a Sample Report
             </button>
           </div>
+        </div>
+
+        {/* Sample ROI preview strip */}
+        <div className="w-full max-w-3xl mx-auto px-6 mb-0">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-2xl p-4 sm:p-5 border"
+            style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}
+          >
+            {[
+              { val: '+285%', label: '3-Year ROI', color: '#FA4616' },
+              { val: '8 months', label: 'Payback Period', color: '#00B5CC' },
+              { val: '$1.4M', label: 'Net 3-Year Value', color: '#a3e635' },
+              { val: '4,160 hrs', label: 'Hours Freed/Year', color: '#00B5CC' },
+            ].map((m) => (
+              <div key={m.label} className="text-center py-1">
+                <div className="text-xl sm:text-2xl font-extrabold tracking-tight" style={{ color: m.color }}>{m.val}</div>
+                <div className="text-[10px] sm:text-xs mt-1 font-medium" style={{ color: 'rgba(255,255,255,0.36)' }}>{m.label}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[10px] text-center mt-2" style={{ color: 'rgba(255,255,255,0.2)' }}>
+            Sample output — your numbers will reflect your actual inputs
+          </p>
         </div>
 
         {/* Terrain wave — trust strip floats up into the wave bottom */}
@@ -662,7 +687,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
                   </span>
                   <span
                     className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: 'rgba(163,230,53,0.12)', color: '#a3e635' }}
+                    style={{ background: 'rgba(0,181,204,0.12)', color: '#00B5CC' }}
                   >
                     {s.badge}
                   </span>
@@ -700,21 +725,21 @@ export function LandingPage({ onStart }: LandingPageProps) {
                 key={o.num}
                 className="rounded-2xl p-7 border flex flex-col"
                 style={{
-                  background: o.featured ? 'rgba(163,230,53,0.04)' : 'rgba(255,255,255,0.03)',
-                  borderColor: o.featured ? 'rgba(163,230,53,0.28)' : 'rgba(255,255,255,0.07)',
+                  background: o.featured ? 'rgba(250,70,22,0.04)' : 'rgba(255,255,255,0.03)',
+                  borderColor: o.featured ? 'rgba(250,70,22,0.30)' : 'rgba(255,255,255,0.07)',
                 }}
               >
                 <div className="flex items-center justify-between mb-6">
                   <span
                     className="text-[10px] font-bold uppercase tracking-widest"
-                    style={{ color: o.featured ? 'rgba(163,230,53,0.55)' : 'rgba(255,255,255,0.2)' }}
+                    style={{ color: o.featured ? 'rgba(250,70,22,0.70)' : 'rgba(255,255,255,0.2)' }}
                   >
                     {o.num}
                   </span>
                   {o.featured && (
                     <span
                       className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                      style={{ background: '#a3e635', color: '#060d1a' }}
+                      style={{ background: '#FA4616', color: 'white' }}
                     >
                       Recommended
                     </span>
@@ -723,7 +748,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
                 <p
                   className="text-[11px] font-semibold uppercase tracking-wider mb-2"
-                  style={{ color: o.featured ? '#a3e635' : 'rgba(255,255,255,0.28)' }}
+                  style={{ color: o.featured ? '#FA4616' : 'rgba(255,255,255,0.28)' }}
                 >
                   {o.tier}
                 </p>
@@ -738,12 +763,12 @@ export function LandingPage({ onStart }: LandingPageProps) {
                       <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 flex-shrink-0" fill="none">
                         <circle
                           cx="8" cy="8" r="7"
-                          stroke={o.featured ? '#a3e635' : 'rgba(255,255,255,0.14)'}
+                          stroke={o.featured ? '#FA4616' : 'rgba(255,255,255,0.14)'}
                           strokeWidth="1"
                         />
                         <path
                           d="M5 8l2 2 4-4"
-                          stroke={o.featured ? '#a3e635' : 'rgba(255,255,255,0.32)'}
+                          stroke={o.featured ? '#FA4616' : 'rgba(255,255,255,0.32)'}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -759,7 +784,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
                   className="w-full py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90"
                   style={
                     o.featured
-                      ? { background: '#a3e635', color: '#060d1a' }
+                      ? { background: '#FA4616', color: 'white' }
                       : {
                           background: 'rgba(255,255,255,0.05)',
                           color: 'rgba(255,255,255,0.65)',
@@ -798,7 +823,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
             {/* Stars */}
             <div className="flex gap-1 mb-6">
               {[1, 2, 3, 4, 5].map((i) => (
-                <svg key={i} viewBox="0 0 16 16" className="w-4 h-4" fill="#a3e635">
+                <svg key={i} viewBox="0 0 16 16" className="w-4 h-4" fill="#FA4616">
                   <path d="M8 1L10 6H15L11 9L12.5 14L8 11L3.5 14L5 9L1 6H6Z" />
                 </svg>
               ))}
@@ -814,7 +839,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
             <div className="flex items-center gap-4">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                style={{ background: 'rgba(163,230,53,0.14)', color: '#a3e635' }}
+                style={{ background: 'rgba(250,70,22,0.14)', color: '#FA4616' }}
               >
                 JC
               </div>
@@ -905,8 +930,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
           </p>
           <button
             onClick={onStart}
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-95"
-            style={{ background: '#a3e635', color: '#060d1a' }}
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm font-bold transition-all hover:opacity-90 active:scale-95 shadow-lg"
+            style={{ background: '#FA4616', color: 'white', boxShadow: '0 8px 32px rgba(250,70,22,0.35)' }}
           >
             Start Building Your Business Case
             <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor">
@@ -919,6 +944,9 @@ export function LandingPage({ onStart }: LandingPageProps) {
         </div>
       </section>
 
+      {/* ── Sample Report Modal ── */}
+      {showSample && <SampleReportModal onClose={() => setShowSample(false)} />}
+
       {/* ── Footer ── */}
       <footer className="border-t" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
         <div className="max-w-5xl mx-auto px-6 py-12">
@@ -928,13 +956,16 @@ export function LandingPage({ onStart }: LandingPageProps) {
               <div className="flex items-center gap-2.5 mb-4">
                 <div
                   className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
-                  style={{ background: '#a3e635' }}
+                  style={{ background: '#FA4616' }}
                 >
-                  <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" style={{ color: '#060d1a' }}>
+                  <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4" style={{ color: 'white' }}>
                     <path d="M2 11.5L6 7.5L9.5 11L14 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <span className="text-sm font-bold text-white">AI ROI Architect</span>
+                <div>
+                  <div className="text-sm font-bold text-white">AI ROI Architect</div>
+                  <div className="text-[10px] font-semibold" style={{ color: '#FA4616' }}>Powered by UiPath</div>
+                </div>
               </div>
               <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.32)' }}>
                 A benchmark-backed ROI calculator for enterprise AI and automation investments. Built for Solutions Engineers.

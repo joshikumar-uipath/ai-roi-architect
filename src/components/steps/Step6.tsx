@@ -10,7 +10,7 @@ interface Step6Props {
 
 const budgetAllocation = [
   { label: 'Discovery & Process Analysis', pct: '15–20%', color: 'bg-blue-400' },
-  { label: 'Development & Configuration', pct: '40–50%', color: 'bg-indigo-500' },
+  { label: 'Development & Configuration', pct: '40–50%', color: 'bg-[#FA4616]' },
   { label: 'Integration & Testing', pct: '20–25%', color: 'bg-violet-400' },
   { label: 'Training & Change Management', pct: '10–15%', color: 'bg-purple-400' },
 ];
@@ -66,7 +66,7 @@ export function Step6({ onNext, onBack }: Step6Props) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
         {/* Left: Inputs */}
         <div className="space-y-6">
           <CurrencyInput
@@ -110,7 +110,7 @@ export function Step6({ onNext, onBack }: Step6Props) {
           {/* Cost efficiency metrics */}
           <div className="bg-gray-50 rounded-xl border border-gray-200 p-4">
             <h4 className="text-xs font-semibold text-gray-700 mb-3">Cost Efficiency Metrics</h4>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="text-center">
                 <div className="text-sm font-bold text-gray-800">{formatCurrency(Math.round(costPerEmployee))}</div>
                 <div className="text-xs text-gray-500 mt-0.5 leading-tight">Impl. cost per employee impacted</div>
@@ -169,11 +169,11 @@ export function Step6({ onNext, onBack }: Step6Props) {
                     {formatCurrency(year3)}
                   </td>
                 </tr>
-                <tr className="bg-indigo-50">
-                  <td className="px-5 py-4 text-sm font-bold text-indigo-900">
+                <tr style={{ background: 'rgba(250,70,22,0.06)' }}>
+                  <td className="px-5 py-4 text-sm font-bold" style={{ color: '#9a2d0a' }}>
                     3-Year Total Investment
                   </td>
-                  <td className="px-5 py-4 text-right text-base font-bold text-indigo-700">
+                  <td className="px-5 py-4 text-right text-base font-bold" style={{ color: '#FA4616' }}>
                     {formatCurrency(total3Year)}
                   </td>
                 </tr>
@@ -246,7 +246,8 @@ export function Step6({ onNext, onBack }: Step6Props) {
         </button>
         <button
           onClick={onNext}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           View Full Results Dashboard →
         </button>

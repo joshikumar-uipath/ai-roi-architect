@@ -37,7 +37,7 @@ function MetricTooltip({ content }: { content: string }) {
     <span className="inline-flex items-center">
       <button
         ref={btnRef}
-        className="w-3.5 h-3.5 rounded-full bg-gray-200 text-gray-500 text-[8px] font-bold hover:bg-indigo-100 hover:text-indigo-600 transition-colors ml-1 inline-flex items-center justify-center flex-shrink-0 focus:outline-none"
+        className="w-3.5 h-3.5 rounded-full bg-gray-200 text-gray-500 text-[8px] font-bold hover:bg-orange-50 hover:text-[#FA4616] transition-colors ml-1 inline-flex items-center justify-center flex-shrink-0 focus:outline-none"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShow(false)}
         onFocus={handleMouseEnter}
@@ -55,7 +55,7 @@ function MetricTooltip({ content }: { content: string }) {
             left: coords.left,
             transform: 'translate(-50%, -100%)',
             zIndex: 9999,
-            width: '18rem',
+            width: 'min(18rem, 85vw)',
           }}
           className="bg-slate-900 border border-white/10 text-white text-[11px] leading-relaxed rounded-xl p-3.5 shadow-2xl pointer-events-none"
         >
@@ -72,7 +72,7 @@ function MetricTooltip({ content }: { content: string }) {
    HERO KPI CARD
 ───────────────────────────────────────────────────────────── */
 const kpiStyles: Record<string, { border: string; accent: string; value: string; bg: string; icon: string }> = {
-  indigo: { border: 'border-indigo-200', accent: 'text-indigo-500', value: 'text-indigo-700', bg: 'bg-indigo-50/60', icon: 'bg-indigo-600' },
+  indigo: { border: 'border-orange-200', accent: 'text-[#FA4616]', value: 'text-[#FA4616]', bg: 'bg-orange-50/60', icon: 'bg-[#FA4616]' },
   emerald: { border: 'border-emerald-200', accent: 'text-emerald-500', value: 'text-emerald-700', bg: 'bg-emerald-50/60', icon: 'bg-emerald-600' },
   amber: { border: 'border-amber-200', accent: 'text-amber-500', value: 'text-amber-700', bg: 'bg-amber-50/60', icon: 'bg-amber-500' },
   cyan: { border: 'border-cyan-200', accent: 'text-cyan-500', value: 'text-cyan-700', bg: 'bg-cyan-50/60', icon: 'bg-cyan-600' },
@@ -85,9 +85,9 @@ function HeroKPI({
 }) {
   const s = kpiStyles[color] ?? kpiStyles.indigo;
   return (
-    <div className={`rounded-2xl border-2 ${s.border} ${s.bg} p-5 flex flex-col gap-2`}>
+    <div className={`rounded-2xl border-2 ${s.border} ${s.bg} p-3 sm:p-5 flex flex-col gap-1.5 sm:gap-2`}>
       <div className="flex items-center justify-between">
-        <div className={`w-8 h-8 rounded-lg ${s.icon} flex items-center justify-center`}>
+        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${s.icon} flex items-center justify-center`}>
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={iconPath} />
           </svg>
@@ -99,7 +99,7 @@ function HeroKPI({
         )}
       </div>
       <div>
-        <div className={`text-2xl font-extrabold tracking-tight ${s.value}`}>{value}</div>
+        <div className={`text-xl sm:text-2xl font-extrabold tracking-tight ${s.value}`}>{value}</div>
         <div className="flex items-center gap-0.5 mt-0.5">
           <span className="text-xs text-gray-500">{label}</span>
           <MetricTooltip content={tip} />
@@ -125,7 +125,7 @@ function ValueDriverCard({
   pctOfTotal: number;
 }) {
   const colors = {
-    indigo: { header: 'bg-indigo-600', bar: 'bg-indigo-500', light: 'bg-indigo-50', border: 'border-indigo-100', badge: 'bg-indigo-100 text-indigo-700', dot: 'bg-indigo-500' },
+    indigo: { header: 'bg-[#FA4616]', bar: 'bg-[#FA4616]', light: 'bg-orange-50', border: 'border-orange-100', badge: 'bg-orange-100 text-[#FA4616]', dot: 'bg-[#FA4616]' },
     rose: { header: 'bg-rose-600', bar: 'bg-rose-500', light: 'bg-rose-50', border: 'border-rose-100', badge: 'bg-rose-100 text-rose-700', dot: 'bg-rose-500' },
     emerald: { header: 'bg-emerald-600', bar: 'bg-emerald-500', light: 'bg-emerald-50', border: 'border-emerald-100', badge: 'bg-emerald-100 text-emerald-700', dot: 'bg-emerald-500' },
   };
@@ -189,10 +189,10 @@ const SCENARIO_CONFIG: Record<ScenarioMode, { label: string; multiplier: string;
   base: {
     label: 'Base Case',
     multiplier: '100% of projected',
-    color: 'text-indigo-700',
-    bg: 'bg-indigo-50',
-    border: 'border-indigo-500',
-    ring: 'ring-indigo-500',
+    color: 'text-[#FA4616]',
+    bg: 'bg-orange-50',
+    border: 'border-[#FA4616]',
+    ring: 'ring-[#FA4616]',
   },
   aggressive: {
     label: 'Aggressive',
@@ -250,7 +250,7 @@ function BenchmarkBar({
 function SectionHeader({ label, title, sub }: { label: string; title: string; sub?: string }) {
   return (
     <div className="mb-5">
-      <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-indigo-500">{label}</span>
+      <span className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: '#FA4616' }}>{label}</span>
       <h3 className="text-lg font-bold text-gray-900 mt-0.5">{title}</h3>
       {sub && <p className="text-sm text-gray-500 mt-1">{sub}</p>}
     </div>
@@ -357,7 +357,7 @@ export function Step7({ onBack }: Step7Props) {
         <div>
           {store.companyName && (
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ color: '#FA4616', background: 'rgba(250,70,22,0.07)', border: '1px solid rgba(250,70,22,0.2)' }}>
                 {store.companyName}
               </span>
               {store.stakeholderName && (
@@ -379,7 +379,8 @@ export function Step7({ onBack }: Step7Props) {
         </div>
         <button
           onClick={handlePrint}
-          className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors no-print"
+          className="flex items-center gap-2 px-4 py-2 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90 no-print"
+          style={{ background: '#FA4616' }}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -391,7 +392,7 @@ export function Step7({ onBack }: Step7Props) {
       {/* ══════════════════════════════════════════════
           HERO KPI BAND — 4 key metrics
       ══════════════════════════════════════════════ */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <HeroKPI
           label="3-Year ROI"
           value={`${results.roi3Year >= 0 ? '+' : ''}${Math.round(results.roi3Year)}%`}
@@ -433,15 +434,15 @@ export function Step7({ onBack }: Step7Props) {
       ══════════════════════════════════════════════ */}
       <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-6 text-white">
         {/* Subtle background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-transparent to-cyan-900/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FA4616]/20 via-transparent to-cyan-900/20 pointer-events-none" />
         <div className="relative flex items-start gap-4">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(250,70,22,0.2)', border: '1px solid rgba(250,70,22,0.35)' }}>
+            <svg className="w-5 h-5" style={{ color: '#FA4616' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>
           <div className="flex-1">
-            <div className="text-[10px] font-bold uppercase tracking-widest text-indigo-400 mb-1">AI-Generated Business Narrative</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: '#FA4616' }}>AI-Generated Business Narrative</div>
             <p className="text-base font-semibold leading-relaxed text-white">{headline}</p>
             <p className="text-sm text-slate-400 mt-2 leading-relaxed">{supporting}</p>
           </div>
@@ -460,7 +461,7 @@ export function Step7({ onBack }: Step7Props) {
             </div>
             <p className="text-xs text-gray-500 mt-0.5">Adjust assumption confidence — all metrics update live</p>
           </div>
-          <div className="flex rounded-xl overflow-hidden border border-gray-200 divide-x divide-gray-200 shadow-sm">
+          <div className="flex rounded-xl overflow-hidden border border-gray-200 divide-x divide-gray-200 shadow-sm w-full sm:w-auto">
             {(Object.keys(SCENARIO_CONFIG) as ScenarioMode[]).map((mode) => {
               const cfg = SCENARIO_CONFIG[mode];
               const isActive = scenarioMode === mode;
@@ -468,7 +469,7 @@ export function Step7({ onBack }: Step7Props) {
                 <button
                   key={mode}
                   onClick={() => setScenario(mode)}
-                  className={`px-4 py-2 text-sm font-semibold transition-all ${
+                  className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all ${
                     isActive ? `${cfg.bg} ${cfg.color}` : 'bg-white text-gray-400 hover:bg-gray-50 hover:text-gray-600'
                   }`}
                 >
@@ -479,7 +480,7 @@ export function Step7({ onBack }: Step7Props) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {(Object.keys(SCENARIO_CONFIG) as ScenarioMode[]).map((mode) => {
             const cfg = SCENARIO_CONFIG[mode];
             const r = mode === 'conservative' ? conservativeResults : mode === 'aggressive' ? aggressiveResults : results;
@@ -790,7 +791,7 @@ export function Step7({ onBack }: Step7Props) {
           3-YEAR FINANCIAL PROJECTION TABLE
       ══════════════════════════════════════════════ */}
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="bg-gray-50 px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-bold text-gray-800">3-Year Financial Projection</h3>
             <MetricTooltip content="Board-ready financial summary showing benefits, costs, and net value for each year. Annual benefits are the same in Y1–Y3 (automation runs continuously). Costs drop after Year 1 as implementation is a one-time cost. The scenario range at the bottom shows conservative-to-aggressive outcomes." />
@@ -798,107 +799,107 @@ export function Step7({ onBack }: Step7Props) {
           <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${
             scenarioMode === 'conservative' ? 'bg-amber-100 text-amber-700'
             : scenarioMode === 'aggressive' ? 'bg-emerald-100 text-emerald-700'
-            : 'bg-indigo-100 text-indigo-700'
+            : 'bg-orange-100 text-[#FA4616]'
           }`}>
             {SCENARIO_CONFIG[scenarioMode].label}
           </span>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs sm:text-sm">
             <thead>
               <tr className="text-[10px] text-gray-400 uppercase tracking-wide border-b border-gray-100">
-                <th className="text-left px-6 py-3 font-semibold">Line Item</th>
-                <th className="text-right px-5 py-3 font-semibold">Year 1</th>
-                <th className="text-right px-5 py-3 font-semibold">Year 2</th>
-                <th className="text-right px-5 py-3 font-semibold">Year 3</th>
-                <th className="text-right px-5 py-3 font-semibold text-indigo-600">3-Year Total</th>
+                <th className="text-left px-3 sm:px-6 py-2 sm:py-3 font-semibold">Line Item</th>
+                <th className="text-right px-2 sm:px-5 py-2 sm:py-3 font-semibold">Year 1</th>
+                <th className="text-right px-2 sm:px-5 py-2 sm:py-3 font-semibold">Year 2</th>
+                <th className="text-right px-2 sm:px-5 py-2 sm:py-3 font-semibold">Year 3</th>
+                <th className="text-right px-2 sm:px-5 py-2 sm:py-3 font-semibold" style={{ color: '#FA4616' }}>3-Year Total</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {/* Benefits breakdown */}
               <tr className="bg-emerald-50/30">
-                <td className="px-6 py-3 text-gray-700 font-semibold flex items-center gap-1">
+                <td className="px-3 sm:px-6 py-2 sm:py-3 text-gray-700 font-semibold flex items-center gap-1">
                   Total Annual Benefits
                   <MetricTooltip content="Combined annual value from all three drivers: workforce efficiency savings + risk/error reduction savings + incremental revenue gains. This number is the same each year because automation runs continuously once deployed." />
                 </td>
                 {[1, 2, 3].map((y) => (
-                  <td key={y} className="px-5 py-3 text-right text-emerald-600 font-semibold">
+                  <td key={y} className="px-2 sm:px-5 py-2 sm:py-3 text-right text-emerald-600 font-semibold whitespace-nowrap">
                     {formatCurrency(Math.round(results.annualSavings + results.newAnnualRevenue))}
                   </td>
                 ))}
-                <td className="px-5 py-3 text-right font-bold text-emerald-700">
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right font-bold text-emerald-700 whitespace-nowrap">
                   {formatCurrency(Math.round(results.totalBenefit3Year))}
                 </td>
               </tr>
               {/* Sub-rows: benefit breakdown */}
               <tr>
-                <td className="pl-10 pr-6 py-2 text-xs text-gray-500 flex items-center gap-1">
+                <td className="pl-5 sm:pl-10 pr-3 sm:pr-6 py-1.5 sm:py-2 text-xs text-gray-500 flex items-center gap-1">
                   ↳ Workforce savings
                   <MetricTooltip content="Labor cost savings from automating repetitive work. See Value Breakdown section for full methodology." />
                 </td>
                 {[1, 2, 3].map((y) => (
-                  <td key={y} className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualLaborSavings))}</td>
+                  <td key={y} className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualLaborSavings))}</td>
                 ))}
-                <td className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualLaborSavings * 3))}</td>
+                <td className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualLaborSavings * 3))}</td>
               </tr>
               <tr>
-                <td className="pl-10 pr-6 py-2 text-xs text-gray-500 flex items-center gap-1">
+                <td className="pl-5 sm:pl-10 pr-3 sm:pr-6 py-1.5 sm:py-2 text-xs text-gray-500 flex items-center gap-1">
                   ↳ Risk & error savings
                   <MetricTooltip content="Cost avoided by reducing process errors, compliance failures, and manual defects. Compliance burden multiplier applied." />
                 </td>
                 {[1, 2, 3].map((y) => (
-                  <td key={y} className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualRiskSavings))}</td>
+                  <td key={y} className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualRiskSavings))}</td>
                 ))}
-                <td className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualRiskSavings * 3))}</td>
+                <td className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualRiskSavings * 3))}</td>
               </tr>
               <tr>
-                <td className="pl-10 pr-6 py-2 text-xs text-gray-500 flex items-center gap-1">
+                <td className="pl-5 sm:pl-10 pr-3 sm:pr-6 py-1.5 sm:py-2 text-xs text-gray-500 flex items-center gap-1">
                   ↳ Revenue gains
                   <MetricTooltip content="Incremental revenue from conversion uplift, churn reduction, and CX improvements." />
                 </td>
                 {[1, 2, 3].map((y) => (
-                  <td key={y} className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualRevenueGain))}</td>
+                  <td key={y} className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualRevenueGain))}</td>
                 ))}
-                <td className="px-5 py-2 text-right text-xs text-gray-500">{formatCurrency(Math.round(results.annualRevenueGain * 3))}</td>
+                <td className="px-2 sm:px-5 py-1.5 sm:py-2 text-right text-xs text-gray-500 whitespace-nowrap">{formatCurrency(Math.round(results.annualRevenueGain * 3))}</td>
               </tr>
               {/* Cost row */}
               <tr className="bg-rose-50/30">
-                <td className="px-6 py-3 text-gray-700 font-semibold flex items-center gap-1">
+                <td className="px-3 sm:px-6 py-2 sm:py-3 text-gray-700 font-semibold flex items-center gap-1">
                   Investment Costs
                   <MetricTooltip content="Year 1 includes implementation + license + maintenance. Years 2–3 are recurring only (license + maintenance). Implementation is a one-time cost." />
                 </td>
-                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{formatCurrency(results.year1Cost)}</td>
-                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{formatCurrency(results.year2Cost)}</td>
-                <td className="px-5 py-3 text-right text-rose-600 font-semibold">{formatCurrency(results.year3Cost)}</td>
-                <td className="px-5 py-3 text-right font-bold text-rose-700">{formatCurrency(results.totalCost3Year)}</td>
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right text-rose-600 font-semibold whitespace-nowrap">{formatCurrency(results.year1Cost)}</td>
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right text-rose-600 font-semibold whitespace-nowrap">{formatCurrency(results.year2Cost)}</td>
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right text-rose-600 font-semibold whitespace-nowrap">{formatCurrency(results.year3Cost)}</td>
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right font-bold text-rose-700 whitespace-nowrap">{formatCurrency(results.totalCost3Year)}</td>
               </tr>
               {/* Net value */}
               <tr className="border-t-2 border-gray-200">
-                <td className="px-6 py-4 text-gray-900 font-bold">Net Value</td>
+                <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-900 font-bold">Net Value</td>
                 {[1, 2, 3].map((y) => {
                   const costs = y === 1 ? results.year1Cost : y === 2 ? results.year2Cost : results.year3Cost;
                   const net = (results.annualSavings + results.newAnnualRevenue) - costs;
                   return (
-                    <td key={y} className={`px-5 py-4 text-right font-bold text-base ${net >= 0 ? 'text-indigo-700' : 'text-rose-600'}`}>
+                    <td key={y} className={`px-2 sm:px-5 py-3 sm:py-4 text-right font-bold text-xs sm:text-base whitespace-nowrap ${net >= 0 ? 'text-[#FA4616]' : 'text-rose-600'}`}>
                       {net >= 0 ? '+' : ''}{formatCurrency(Math.round(net))}
                     </td>
                   );
                 })}
-                <td className={`px-5 py-4 text-right font-extrabold text-xl ${results.netBenefit3Year >= 0 ? 'text-indigo-700' : 'text-rose-600'}`}>
+                <td className={`px-2 sm:px-5 py-3 sm:py-4 text-right font-extrabold text-sm sm:text-xl whitespace-nowrap ${results.netBenefit3Year >= 0 ? 'text-[#FA4616]' : 'text-rose-600'}`}>
                   {results.netBenefit3Year >= 0 ? '+' : ''}{formatCurrency(Math.round(results.netBenefit3Year))}
                 </td>
               </tr>
               {/* Scenario range */}
               <tr className="bg-gray-50 border-t-2 border-gray-200">
-                <td className="px-6 py-3 flex items-center gap-1">
+                <td className="px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-1">
                   <span className="text-xs text-gray-500 font-medium">Scenario Range</span>
                   <MetricTooltip content="The full range of outcomes from Conservative (65% benefit realization) to Aggressive (135% realization). Your selected scenario is shown in the rows above. Use this range in board presentations to show risk-adjusted outcomes." />
                 </td>
-                <td colSpan={3} className="px-5 py-3 text-center text-xs text-gray-400">Conservative → Base → Aggressive</td>
-                <td className="px-5 py-3 text-right">
-                  <span className="text-xs text-amber-600 font-semibold">{formatCurrency(Math.round(conservativeResults.netBenefit3Year))}</span>
-                  <span className="text-xs text-gray-400 mx-1.5">–</span>
-                  <span className="text-xs text-emerald-600 font-semibold">{formatCurrency(Math.round(aggressiveResults.netBenefit3Year))}</span>
+                <td colSpan={3} className="px-2 sm:px-5 py-2 sm:py-3 text-center text-[10px] sm:text-xs text-gray-400 whitespace-nowrap">Cons. → Base → Agg.</td>
+                <td className="px-2 sm:px-5 py-2 sm:py-3 text-right whitespace-nowrap">
+                  <span className="text-[10px] sm:text-xs text-amber-600 font-semibold">{formatCurrency(Math.round(conservativeResults.netBenefit3Year))}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400 mx-0.5 sm:mx-1.5">–</span>
+                  <span className="text-[10px] sm:text-xs text-emerald-600 font-semibold">{formatCurrency(Math.round(aggressiveResults.netBenefit3Year))}</span>
                 </td>
               </tr>
             </tbody>
@@ -910,7 +911,7 @@ export function Step7({ onBack }: Step7Props) {
           COST OF INACTION
       ══════════════════════════════════════════════ */}
       {totalAnnualValue > 0 && (
-        <div className="relative overflow-hidden rounded-2xl border-l-4 border-amber-400 bg-gradient-to-r from-amber-50 to-orange-50 p-6">
+        <div className="relative overflow-hidden rounded-2xl border-l-4 border-amber-400 bg-gradient-to-r from-amber-50 to-orange-50 p-4 sm:p-6">
           <div className="flex items-start gap-3 mb-4">
             <div className="w-9 h-9 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center flex-shrink-0">
               <svg className="w-4.5 h-4.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -925,16 +926,16 @@ export function Step7({ onBack }: Step7Props) {
               <p className="text-xs text-amber-700 mt-0.5">Every day without AI investment, your organization leaves measurable value unrealized.</p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               { label: 'Per day delayed', value: formatCurrency(Math.round(dailyCost)), tip: `$${formatNumber(Math.round(totalAnnualValue))} annual value ÷ 365 days = ${formatCurrency(Math.round(dailyCost))} foregone per day of delay.` },
               { label: 'Per month delayed', value: formatCurrency(Math.round(monthlyCost)), tip: `$${formatNumber(Math.round(totalAnnualValue))} annual value ÷ 12 months = ${formatCurrency(Math.round(monthlyCost))} foregone each month of delay.` },
               { label: 'Per year delayed', value: formatCurrency(Math.round(totalAnnualValue)), tip: 'Total annual value (savings + revenue) that would be generated if automation were deployed today. This is the full opportunity cost of a 12-month delay.' },
             ].map((item) => (
-              <div key={item.label} className="bg-white/80 rounded-xl border border-amber-100 p-4 text-center">
-                <div className={`text-xl font-extrabold ${item.label.includes('year') ? 'text-rose-600' : 'text-amber-700'}`}>{item.value}</div>
+              <div key={item.label} className="bg-white/80 rounded-xl border border-amber-100 p-2.5 sm:p-4 text-center">
+                <div className={`text-base sm:text-xl font-extrabold ${item.label.includes('year') ? 'text-rose-600' : 'text-amber-700'}`}>{item.value}</div>
                 <div className="flex items-center justify-center gap-0.5 mt-1">
-                  <span className="text-xs text-gray-500">{item.label}</span>
+                  <span className="text-[10px] sm:text-xs text-gray-500 leading-tight">{item.label}</span>
                   <MetricTooltip content={item.tip} />
                 </div>
               </div>
@@ -957,7 +958,7 @@ export function Step7({ onBack }: Step7Props) {
             {recommendations.map((rec) => {
               const color = colorMap[rec.color] ?? 'indigo';
               const monogramColors = {
-                indigo: 'bg-indigo-600 text-white',
+                indigo: 'bg-[#FA4616] text-white',
                 cyan: 'bg-sky-600 text-white',
                 emerald: 'bg-emerald-600 text-white',
                 amber: 'bg-amber-500 text-white',
@@ -1004,7 +1005,8 @@ export function Step7({ onBack }: Step7Props) {
           </span>
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors"
+            className="flex items-center gap-2 px-5 py-2.5 text-white text-sm font-semibold rounded-xl transition-opacity hover:opacity-90"
+            style={{ background: '#FA4616' }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />

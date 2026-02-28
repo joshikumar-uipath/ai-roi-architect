@@ -113,7 +113,7 @@ export function Step2({ onNext, onBack }: Step2Props) {
         <p className="text-xs text-gray-400 mb-4">
           Select all that apply — each pre-selects the most relevant goals below.
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {primaryChallenges.map((challenge) => {
             const isSelected = store.primaryChallenges.includes(challenge.id);
             return (
@@ -123,7 +123,7 @@ export function Step2({ onNext, onBack }: Step2Props) {
                 onClick={() => handleChallengeToggle(challenge.id)}
                 className={`flex flex-col items-start text-left p-4 rounded-xl border-2 transition-all duration-150 ${
                   isSelected
-                    ? 'border-slate-900 bg-slate-900'
+                    ? 'border-[#FA4616] bg-[#FA4616]'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
@@ -132,12 +132,12 @@ export function Step2({ onNext, onBack }: Step2Props) {
                     {challenge.label}
                   </span>
                   {isSelected && (
-                    <span className="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 ml-1">
+                    <span className="w-5 h-5 rounded-full bg-white/25 flex items-center justify-center flex-shrink-0 ml-1">
                       <CheckIcon />
                     </span>
                   )}
                 </div>
-                <span className={`text-xs leading-snug ${isSelected ? 'text-slate-400' : 'text-gray-500'}`}>
+                <span className={`text-xs leading-snug ${isSelected ? 'text-white/75' : 'text-gray-500'}`}>
                   {challenge.desc}
                 </span>
               </button>
@@ -156,7 +156,7 @@ export function Step2({ onNext, onBack }: Step2Props) {
             </h3>
             {errors.goals && <p className="text-xs text-red-500">{errors.goals}</p>}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {goals.map((goal) => {
               const isSelected = store.selectedGoals.includes(goal.id);
               const colors = pillarColors[goal.pillar];
@@ -167,16 +167,16 @@ export function Step2({ onNext, onBack }: Step2Props) {
                   onClick={() => store.toggleGoal(goal.id)}
                   className={`flex flex-col items-start text-left p-4 rounded-xl border-2 transition-all duration-150 ${
                     isSelected
-                      ? 'border-indigo-600 bg-indigo-50'
+                      ? 'border-[#FA4616] bg-[#FFF7F5]'
                       : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
                   <div className="flex items-start justify-between w-full mb-2">
-                    <span className={`text-sm font-semibold leading-tight ${isSelected ? 'text-indigo-900' : 'text-gray-800'}`}>
+                    <span className={`text-sm font-semibold leading-tight ${isSelected ? 'text-gray-900' : 'text-gray-800'}`}>
                       {goal.label}
                     </span>
                     {isSelected && (
-                      <span className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 ml-1">
+                      <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ml-1" style={{ background: '#FA4616' }}>
                         <CheckIcon />
                       </span>
                     )}
@@ -194,7 +194,7 @@ export function Step2({ onNext, onBack }: Step2Props) {
 
         {/* Value Coverage Panel */}
         <div className="lg:col-span-1">
-          <div className={`rounded-xl border p-5 h-fit sticky top-4 transition-all ${
+          <div className={`rounded-xl border p-5 h-fit sticky top-0 sm:top-4 transition-all ${
             totalGoalsSelected > 0 ? 'border-gray-200 bg-white shadow-sm' : 'border-dashed border-gray-200 bg-gray-50'
           }`}>
             <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">ROI Coverage</h3>
@@ -250,7 +250,7 @@ export function Step2({ onNext, onBack }: Step2Props) {
           Which capabilities are you most open to? This shapes product recommendations in your results.
         </p>
         {errors.solutions && <p className="text-xs text-red-500 mb-3">{errors.solutions}</p>}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {solutions.map((sol) => {
             const isSelected = store.selectedSolutionTypes.includes(sol.id);
             return (
@@ -290,7 +290,8 @@ export function Step2({ onNext, onBack }: Step2Props) {
         </button>
         <button
           onClick={() => { if (validate()) onNext(); }}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           Next: Workforce →
         </button>

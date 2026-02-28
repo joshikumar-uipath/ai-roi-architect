@@ -139,14 +139,16 @@ export function PrintReport() {
   const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   const page: React.CSSProperties = {
-    width: '100%',
-    minHeight: '277mm',
-    padding: '28mm 22mm',
+    width: '210mm',
+    minHeight: '297mm',
+    padding: '24mm 20mm',
     boxSizing: 'border-box',
     background: 'white',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     pageBreakAfter: 'always',
+    breakAfter: 'page',
     position: 'relative',
+    margin: '0 auto',
   };
 
   /* Year-by-year ROI progression for the chart */
@@ -159,12 +161,12 @@ export function PrintReport() {
   const maxRoiBar = Math.max(annualBenefit, results.year1Cost) * 1.1;
 
   return (
-    <div className="print-only" style={{ background: 'white' }}>
+    <div className="print-only" style={{ background: 'white', width: '100%' }}>
 
       {/* ══════════════════════════════════
           PAGE 1 — COVER
       ══════════════════════════════════ */}
-      <div style={{ ...page, padding: 0, display: 'flex', flexDirection: 'column', minHeight: '297mm' }}>
+      <div style={{ ...page, padding: 0, display: 'flex', flexDirection: 'column' }}>
         {/* Top dark band */}
         <div style={{ background: NAVY, padding: '40px 44px 36px', flex: '0 0 auto' }}>
           {/* UiPath wordmark */}
@@ -626,7 +628,7 @@ export function PrintReport() {
       {/* ══════════════════════════════════
           PAGE 6 — BACK COVER
       ══════════════════════════════════ */}
-      <div style={{ ...page, pageBreakAfter: 'auto', display: 'flex', flexDirection: 'column', minHeight: '297mm', padding: 0 }}>
+      <div style={{ ...page, pageBreakAfter: 'auto', breakAfter: 'auto', display: 'flex', flexDirection: 'column', padding: 0 }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '60px 44px', textAlign: 'center' }}>
           {/* UiPath wordmark large */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 40 }}>

@@ -82,7 +82,7 @@ export function Step1({ onNext }: Step1Props) {
                 value={store[field]}
                 onChange={(e) => store.setField(field, e.target.value)}
                 placeholder={placeholder}
-                className="block w-full rounded-lg border border-gray-200 py-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="block w-full rounded-lg border border-gray-200 py-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FA4616] focus:border-transparent transition"
               />
             </div>
           ))}
@@ -105,7 +105,7 @@ export function Step1({ onNext }: Step1Props) {
                 onClick={() => store.setField('industry', ind.id)}
                 className={`flex flex-col text-left p-4 rounded-xl border-2 transition-all duration-150 ${
                   isSelected
-                    ? 'border-slate-900 bg-slate-900'
+                    ? 'border-[#FA4616] bg-[#FA4616]'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
@@ -128,13 +128,13 @@ export function Step1({ onNext }: Step1Props) {
                     <div className={`text-base font-bold tracking-tight leading-none ${isSelected ? 'text-white' : 'text-gray-900'}`}>
                       {ind.avgROI}%
                     </div>
-                    <div className={`text-xs mt-1 ${isSelected ? 'text-slate-400' : 'text-gray-400'}`}>avg ROI</div>
+                    <div className={`text-xs mt-1 ${isSelected ? 'text-white/75' : 'text-gray-400'}`}>avg ROI</div>
                   </div>
                   <div>
                     <div className={`text-base font-bold tracking-tight leading-none ${isSelected ? 'text-white' : 'text-gray-900'}`}>
                       {ind.avgPayback}mo
                     </div>
-                    <div className={`text-xs mt-1 ${isSelected ? 'text-slate-400' : 'text-gray-400'}`}>payback</div>
+                    <div className={`text-xs mt-1 ${isSelected ? 'text-white/75' : 'text-gray-400'}`}>payback</div>
                   </div>
                 </div>
               </button>
@@ -143,14 +143,14 @@ export function Step1({ onNext }: Step1Props) {
         </div>
 
         {benchmark && store.industry && (
-          <div className="mt-3 border-l-4 border-indigo-500 bg-indigo-50 rounded-r-xl px-4 py-3">
-            <p className="text-xs text-indigo-800">
+          <div className="mt-3 border-l-4 rounded-r-xl px-4 py-3" style={{ borderColor: '#00B5CC', background: 'rgba(0,181,204,0.06)' }}>
+            <p className="text-xs" style={{ color: '#0e6b7a' }}>
               <span className="font-semibold">{store.industry} peer benchmark:</span>{' '}
               Companies in your sector average{' '}
               <span className="font-bold">{benchmark.avgROI}% ROI</span>,{' '}
               <span className="font-bold">{benchmark.avgPaybackMonths}-month payback</span>, and{' '}
               <span className="font-bold">{benchmark.avgTimeSavingsPct}% time savings</span> from AI automation.{' '}
-              <span className="text-indigo-600">{benchmark.adoptionRate}% have already adopted.</span>
+              <span style={{ color: '#00B5CC' }} className="font-semibold">{benchmark.adoptionRate}% have already adopted.</span>
             </p>
           </div>
         )}
@@ -162,7 +162,7 @@ export function Step1({ onNext }: Step1Props) {
           <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Organization Size</h3>
           {errors.teamSize && <p className="text-xs text-red-500">{errors.teamSize}</p>}
         </div>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
           {teamSizeOptions.map((size) => {
             const isSelected = store.teamSize === size.id;
             return (
@@ -172,14 +172,14 @@ export function Step1({ onNext }: Step1Props) {
                 onClick={() => store.setField('teamSize', size.id)}
                 className={`flex flex-col items-center py-3 px-2 rounded-xl border-2 transition-all duration-150 ${
                   isSelected
-                    ? 'border-slate-900 bg-slate-900'
+                    ? 'border-[#FA4616] bg-[#FA4616]'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
                 <span className={`text-sm font-bold ${isSelected ? 'text-white' : 'text-gray-800'}`}>
                   {size.label}
                 </span>
-                <span className={`text-xs mt-0.5 ${isSelected ? 'text-slate-400' : 'text-gray-400'}`}>
+                <span className={`text-xs mt-0.5 ${isSelected ? 'text-white/75' : 'text-gray-400'}`}>
                   {size.subtitle}
                 </span>
               </button>
@@ -248,12 +248,12 @@ export function Step1({ onNext }: Step1Props) {
                 onClick={() => store.setField('aiMaturity', isSelected ? '' : level.id)}
                 className={`flex flex-col items-start text-left p-4 rounded-xl border-2 transition-all duration-150 ${
                   isSelected
-                    ? 'border-slate-900 bg-slate-900'
+                    ? 'border-[#FA4616] bg-[#FA4616]'
                     : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-3">
-                  <span className={`text-[10px] font-semibold tracking-widest uppercase ${isSelected ? 'text-slate-500' : 'text-gray-300'}`}>
+                  <span className={`text-[10px] font-semibold tracking-widest uppercase ${isSelected ? 'text-white/50' : 'text-gray-300'}`}>
                     {level.num}
                   </span>
                   {isSelected && (
@@ -267,7 +267,7 @@ export function Step1({ onNext }: Step1Props) {
                 <span className={`text-sm font-bold ${isSelected ? 'text-white' : 'text-gray-800'}`}>
                   {level.label}
                 </span>
-                <span className={`text-xs mt-1 leading-snug ${isSelected ? 'text-slate-400' : 'text-gray-500'}`}>
+                <span className={`text-xs mt-1 leading-snug ${isSelected ? 'text-white/75' : 'text-gray-500'}`}>
                   {level.desc}
                 </span>
               </button>
@@ -286,7 +286,8 @@ export function Step1({ onNext }: Step1Props) {
           onClick={() => {
             if (validate()) onNext();
           }}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           Next: AI Priorities →
         </button>

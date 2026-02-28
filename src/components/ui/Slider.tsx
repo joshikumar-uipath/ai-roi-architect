@@ -28,7 +28,10 @@ export function Slider({
     <div className="space-y-2">
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-semibold bg-indigo-100 text-indigo-800 min-w-[4rem] text-center justify-center">
+        <span
+          className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-semibold min-w-[4rem] text-center justify-center"
+          style={{ background: 'rgba(250,70,22,0.10)', color: '#FA4616' }}
+        >
           {displayValue}
         </span>
       </div>
@@ -40,9 +43,10 @@ export function Slider({
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-indigo-600 bg-gray-200"
+          className="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-200"
           style={{
-            background: `linear-gradient(to right, #4F46E5 0%, #4F46E5 ${pct}%, #E5E7EB ${pct}%, #E5E7EB 100%)`,
+            background: `linear-gradient(to right, #FA4616 0%, #FA4616 ${pct}%, #E5E7EB ${pct}%, #E5E7EB 100%)`,
+            accentColor: '#FA4616',
           }}
         />
       </div>

@@ -34,8 +34,8 @@ export function Step3({ onNext, onBack }: Step3Props) {
 
       {/* Industry benchmark banner */}
       {benchmark && (
-        <div className="border-l-4 border-indigo-500 bg-indigo-50 rounded-r-xl px-4 py-3">
-          <p className="text-xs text-indigo-800">
+        <div className="border-l-4 rounded-r-xl px-4 py-3" style={{ borderColor: '#00B5CC', background: 'rgba(0,181,204,0.06)' }}>
+          <p className="text-xs" style={{ color: '#0e6b7a' }}>
             <span className="font-semibold">{store.industry} automation benchmark:</span>{' '}
             Companies in your sector achieve an average{' '}
             <span className="font-bold">{benchmark.avgTimeSavingsPct}% time savings</span> through AI automation.{' '}
@@ -44,9 +44,9 @@ export function Step3({ onNext, onBack }: Step3Props) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
         {/* Inputs */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6 lg:space-y-8">
           <Slider
             label="Hours Invested in Manual & Repetitive Tasks (per Employee / Week)"
             min={1}
@@ -107,16 +107,16 @@ export function Step3({ onNext, onBack }: Step3Props) {
 
         {/* Live Preview */}
         <div className="lg:col-span-1">
-          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-4 space-y-4">
+          <div className="bg-gray-50 rounded-xl border border-gray-200 p-5 sticky top-0 sm:top-4 space-y-4">
             <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#FA4616' }} />
               Live Productivity Impact
             </h3>
 
             {/* Annual Hours */}
             <div className="bg-white rounded-lg p-3 shadow-sm">
               <div className="text-xs text-gray-500 mb-1">Annual Hours Reclaimed</div>
-              <div className="text-xl font-bold text-indigo-700">
+              <div className="text-xl font-bold" style={{ color: '#FA4616' }}>
                 {formatNumber(Math.round(annualHoursSaved))} hrs
               </div>
               <div className="text-xs text-gray-400 mt-1">
@@ -150,12 +150,12 @@ export function Step3({ onNext, onBack }: Step3Props) {
             <div className="bg-white rounded-lg p-3 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <div className="text-xs text-gray-500">Capacity Reclaimed</div>
-                <div className="text-xs font-bold text-indigo-600">{productivityGainPct.toFixed(1)}%</div>
+                <div className="text-xs font-bold" style={{ color: '#FA4616' }}>{productivityGainPct.toFixed(1)}%</div>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-2">
                 <div
-                  className="bg-indigo-500 h-2 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min(productivityGainPct, 100)}%` }}
+                  className="h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(productivityGainPct, 100)}%`, background: '#FA4616' }}
                 />
               </div>
               <div className="text-xs text-gray-400 mt-1.5">
@@ -175,7 +175,8 @@ export function Step3({ onNext, onBack }: Step3Props) {
         </button>
         <button
           onClick={onNext}
-          className="px-6 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors"
+          className="px-6 py-2.5 text-white text-sm font-semibold rounded-lg transition-opacity hover:opacity-90"
+          style={{ background: '#FA4616' }}
         >
           Next: Risk & Errors →
         </button>
